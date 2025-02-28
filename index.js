@@ -1,8 +1,4 @@
-
 import React, { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 
 const CalcoloRataExpress = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -22,26 +18,27 @@ const CalcoloRataExpress = () => {
         <div className="p-4">
             <h1 className="text-2xl font-bold mb-4">CalcoloRataExpress</h1>
             <div className="mb-4">
-                <Input
+                <input
+                    type="text"
                     placeholder="Cerca un prodotto (es. iPhone 16)"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full p-2 border rounded"
                 />
-                <Button onClick={handleSearch} className="mt-2 w-full bg-blue-500 text-white p-2 rounded">
+                <button onClick={handleSearch} className="mt-2 w-full bg-blue-500 text-white p-2 rounded">
                     Cerca
-                </Button>
+                </button>
             </div>
             <div>
                 {results.map((result, index) => (
-                    <Card key={index} className="mb-2 p-2 bg-white shadow-md rounded-lg">
-                        <CardContent>
+                    <div key={index} className="mb-2 p-2 bg-white shadow-md rounded-lg">
+                        <div>
                             <h2 className="text-lg font-semibold">{result.platform}</h2>
                             <p className="text-sm">{result.offer}</p>
                             <p className="text-sm font-bold">Rata Mensile: {result.monthlyRate}</p>
                             <a href={result.link} className="text-blue-500">Vai all'offerta</a>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 ))}
             </div>
         </div>
