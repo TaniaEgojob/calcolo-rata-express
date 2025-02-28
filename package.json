@@ -1,4 +1,3 @@
-
 {
   "name": "calcolo-rata-express",
   "version": "1.0.0",
@@ -11,9 +10,6 @@
   "dependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "next": "^13.0.0",
-    "@/components/ui/card": "latest",
-    "@/components/ui/input": "latest",
-    "@/components/ui/button": "latest"
+    "next": "^13.0.0"
   }
 }
