@@ -3,15 +3,20 @@ import React, { useState } from 'react';
 const Home = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [results, setResults] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSearch = async () => {
-        // Simulazione di risultati di ricerca
-        const simulatedResults = [
-            { platform: 'Amazon con Klarna', offer: '3 rate senza interessi', monthlyRate: '500 €', link: '#' },
-            { platform: 'Mediaworld con Pagodil', offer: '10 rate senza spese', monthlyRate: '150 €', link: '#' },
-            { platform: 'Findomestic Prestito', offer: '24 rate con TAEG 4,5%', monthlyRate: '70 €', link: '#' }
-        ];
-        setResults(simulatedResults);
+        setIsLoading(true);
+
+        try {
+            const response = await fetch(`/api/search?query=${searchQuery}`);
+            const data = await response.json();
+            setResults(data.products || []);
+        } catch (error) {
+            console.error('Errore durante la ricerca:', error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -58,22 +63,27 @@ const Home = () => {
             {/* Risultati della ricerca */}
             <section className="container mx-auto px-6 py-12">
                 <h2 className="text-3xl font-bold text-blue-900 text-center mb-8">Risultati</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {results.map((result, index) => (
-                        <div key={index} className="bg-white p-6 shadow-lg rounded-lg transform hover:scale-105 transition-all">
-                            <h3 className="text-xl font-semibold text-indigo-700">{result.platform}</h3>
-                            <p className="text-gray-600 mt-2">{result.offer}</p>
-                            <p className="text-green-600 font-bold mt-2">Rata Mensile: {result.monthlyRate}</p>
-                            <a
-                                href={result.link}
-                                className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-all"
-                                aria-label={`Scopri di più su ${result.platform}`}
-                            >
-                                Scopri di più
-                            </a>
-                        </div>
-                    ))}
-                </div>
+                {isLoading ? (
+                    <p className="text-center">Caricamento...</p>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {results.map((result, index) => (
+                            <div key={index} className="bg-white p-6 shadow-lg rounded-lg transform hover:scale-105 transition-all">
+                                <img src={result.image} alt={result.title} className="w-full h-48 object-cover mb-4" />
+                                <h3 className="text-xl font-semibold text-indigo-700">{result.title}</h3>
+                                <p className="text-green-600 font-bold mt-2">Prezzo: {result.price} €</p>
+                                <a
+                                    href={result.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-all"
+                                >
+                                    Acquista ora
+                                </a>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </section>
 
             {/* Footer */}
