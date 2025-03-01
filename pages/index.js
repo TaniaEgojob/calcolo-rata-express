@@ -37,4 +37,4 @@ const Home = () => {
                     <div key={index} className="p-4 bg-white shadow-md rounded-lg mb-4">
                         <h2 className="text-xl font-semibold text-indigo-700">{result.platform}</h2>
                         <p className="text-gray-600">{result.offer}</p>
-                        <p className="text-green-600 font-bold">Rata Mens
+                        <p className="text-green-600 font-bold">Rata Mensile: {result.monthlyRate}</p>
