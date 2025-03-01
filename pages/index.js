@@ -35,17 +35,19 @@ const Home = () => {
                 <div className="container mx-auto px-6 text-center">
                     <h2 className="text-4xl font-bold text-blue-900">Trova le migliori offerte a rate</h2>
                     <p className="mt-4 text-lg text-blue-700">Confronta le opzioni e scegli quella più adatta a te.</p>
-                    <div className="mt-8 bg-white p-6 shadow-lg rounded-lg inline-block">
+                    <div className="mt-8 bg-white p-6 shadow-lg rounded-lg inline-block w-full max-w-md">
                         <input
                             type="text"
                             placeholder="Cerca un prodotto (es. iPhone 16)"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-label="Cerca un prodotto"
                         />
                         <button
                             onClick={handleSearch}
                             className="mt-4 w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            aria-label="Cerca offerte"
                         >
                             Cerca Offerte
                         </button>
@@ -65,6 +67,7 @@ const Home = () => {
                             <a
                                 href={result.link}
                                 className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-all"
+                                aria-label={`Scopri di più su ${result.platform}`}
                             >
                                 Scopri di più
                             </a>
