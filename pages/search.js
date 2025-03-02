@@ -4,12 +4,13 @@ export default async function handler(req, res) {
     const { query } = req.query;
 
     try {
-        const response = await axios.get('https://www.googleapis.com/shopping/search/v1/public/products', {
+        const response = await axios.get('https://www.googleapis.com/content/v2.1/products', {
             params: {
-                q: query,
+                merchantId: process.env.GOOGLE_MERCHANT_ID,
                 key: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
-                country: 'IT', // Paese (Italia)
-                language: 'it', // Lingua (Italiano)
+                q: query,
+                country: 'IT',
+                language: 'it',
             },
         });
 
